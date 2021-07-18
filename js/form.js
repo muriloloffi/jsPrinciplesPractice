@@ -2,18 +2,15 @@ var botaoAdicionar = document.querySelector("#adicionar-paciente");
 
 botaoAdicionar.addEventListener("click", function (event) {
     event.preventDefault();
-
     var form = document.querySelector("#form-adiciona");
-
     var paciente = obtemPacienteDoFormulario(form);
-
     var pacienteTr = montaTr(paciente);
 
     var erros = validaPaciente(paciente);
 
     if (erros.length > 0) {
         exibeMensagensDeErro(erros);
-        return
+        return;
     }
 
     var tabela = document.querySelector("#tabela-pacientes");
@@ -80,10 +77,18 @@ function validaPaciente(paciente) {
 
     var erros = [];
 
+    if (paciente.nome.length == 0)
+        erros.push("O nome não pode ser em branco");
     if (!validaPeso(paciente.peso))
         erros.push("O peso é inválido");
     if (!validaAltura(paciente.altura))
         erros.push("A altura é inválida");
+    if (paciente.gordura.length == 0)
+        erros.push("A gordura não pode ser em branco.");
+    if (paciente.peso.length == 0)
+        erros.push("O peso não pode ser em branco");
+    if (paciente.altura.length == 0)
+        erros.push("A altura não pode ser em branco");
 
     return erros;
 };
